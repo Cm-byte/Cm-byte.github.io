@@ -1,0 +1,210 @@
+:root {
+  --bg: #0d0b1e;
+  --panel: #1a1638;
+  --border: #f8f8f8;
+  --accent: #ff4f9a;   /* rosa arcade */
+  --accent2: #38e1ff;  /* cian */
+  --gold: #ffd23f;
+  --green: #4dff88;
+  --text: #e8e6ff;
+  --muted: #8f8ab8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  line-height: 1.4;
+  image-rendering: pixelated;
+}
+/* Efecto CRT: líneas de escaneo */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,.18) 0 2px, transparent 2px 4px);
+  z-index: 100;
+}
+h1, h2, h3, .pixel { font-family: 'Press Start 2P', monospace; }
+a { color: var(--accent2); }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+
+/* Bordes pixelados reutilizables */
+.box {
+  background: var(--panel);
+  border: 4px solid var(--border);
+  box-shadow: 6px 6px 0 #000, inset -4px -4px 0 rgba(0,0,0,.35);
+}
+
+/* ---------- PANTALLA DE TÍTULO ---------- */
+.title-screen {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; gap: 28px;
+  background:
+    radial-gradient(circle at 50% 120%, #3b1d6e 0%, transparent 60%),
+    var(--bg);
+  position: relative; overflow: hidden;
+}
+.stars { position: absolute; inset: 0; pointer-events: none; }
+.stars span {
+  position: absolute; width: 3px; height: 3px; background: #fff;
+  animation: twinkle 2s steps(2) infinite;
+}
+@keyframes twinkle { 50% { opacity: .2; } }
+.title-screen h1 {
+  font-size: clamp(22px, 6vw, 52px);
+  color: var(--gold);
+  text-shadow: 4px 4px 0 var(--accent), 8px 8px 0 #000;
+  letter-spacing: 2px;
+}
+.subtitle { font-size: clamp(12px, 2.4vw, 16px); color: var(--accent2); }
+.press-start {
+  font-size: clamp(11px, 2.2vw, 16px);
+  color: var(--text);
+  text-decoration: none;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- NAV ---------- */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--bg);
+  border-bottom: 4px solid var(--border);
+}
+nav .wrap { display: flex; gap: 20px; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; }
+nav a {
+  font-family: 'Press Start 2P', monospace; font-size: 11px;
+  color: var(--text); text-decoration: none;
+}
+nav a:hover, nav a:focus { color: var(--gold); }
+nav a:hover::before, nav a:focus::before { content: "▶ "; }
+
+section { padding: 72px 0; }
+.section-title {
+  font-size: clamp(14px, 3vw, 22px);
+  color: var(--accent);
+  margin-bottom: 28px;
+  text-shadow: 3px 3px 0 #000;
+}
+
+/* ---------- FICHA DEL JUGADOR ---------- */
+.player { display: grid; grid-template-columns: 180px 1fr; gap: 28px; padding: 24px; }
+.avatar {
+  width: 180px; height: 180px;
+  background: #2b2560;
+  border: 4px solid var(--border);
+  display: grid; place-items: center;
+  font-size: 72px;
+  overflow: hidden;
+}
+.avatar { color: var(--gold); }
+.avatar .icon { width: 65%; height: 65%; }
+.icon { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
+.level-thumb .icon { color: var(--accent2); }
+.status { display: inline-flex; align-items: center; gap: 6px; }
+.status .icon { width: 14px; height: 14px; }
+.player h3 { font-size: 14px; color: var(--gold); margin-bottom: 10px; line-height: 1.6; }
+.player-class { font-size: 9px; color: var(--accent2); margin-bottom: 12px; }
+.hi-score { font-size: clamp(8px, 1.8vw, 11px); color: var(--muted); }
+.stat { margin: 10px 0; }
+.stat-label { display: flex; justify-content: space-between; font-size: 20px; }
+.bar { height: 16px; border: 3px solid var(--border); background: #000; }
+.bar > div { height: 100%; background: repeating-linear-gradient(90deg, var(--green) 0 10px, #2fcf66 10px 12px); }
+
+/* ---------- SELECCIÓN DE NIVEL (PROYECTOS) ---------- */
+.filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+.filters button {
+  font-family: 'Press Start 2P', monospace; font-size: 10px;
+  background: var(--panel); color: var(--text);
+  border: 3px solid var(--border); padding: 10px 12px; cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+}
+.filters button.active, .filters button:hover { background: var(--accent); color: #000; }
+.filters button:active { transform: translate(3px,3px); box-shadow: none; }
+
+.levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.level {
+  padding: 0; display: flex; flex-direction: column;
+  transition: transform .1s steps(2);
+}
+.level:hover, .level:focus-within { transform: translate(-3px,-3px); box-shadow: 9px 9px 0 var(--accent); }
+.level-thumb {
+  height: 150px; border-bottom: 4px solid var(--border);
+  display: grid; place-items: center;
+  font-size: 54px;
+  background: linear-gradient(135deg, #2b2560, #13102b);
+  overflow: hidden;
+}
+.level-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.level-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.level-num { font-size: 10px; color: var(--accent2); }
+.level h3 { font-size: 12px; line-height: 1.6; color: var(--gold); }
+.difficulty { color: var(--gold); letter-spacing: 3px; font-size: 20px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 17px; border: 2px solid var(--muted); color: var(--muted); padding: 0 6px; }
+.level-links { margin-top: auto; display: flex; gap: 10px; }
+.btn {
+  font-family: 'Press Start 2P', monospace; font-size: 9px;
+  text-decoration: none; padding: 10px; color: #000;
+  background: var(--accent2); border: 3px solid #000;
+  box-shadow: 3px 3px 0 #000;
+}
+.btn.alt { background: var(--gold); }
+.btn:active { transform: translate(3px,3px); box-shadow: none; }
+.status { font-size: 9px; font-family: 'Press Start 2P', monospace; }
+.status.done { color: var(--green); }
+.status.wip { color: var(--accent); }
+
+/* Nivel jefe (proyecto destacado) */
+.level-thumb { position: relative; }
+.boss { border-color: var(--gold); }
+.boss .level-thumb { background: linear-gradient(135deg, #5a2a6e, #1b1238); border-bottom-color: var(--gold); }
+.boss-tag {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 9px; color: #000; background: var(--gold);
+  padding: 6px 8px; border: 2px solid #000;
+  animation: blink 1.2s steps(1) infinite;
+}
+.role { border-left: 4px solid var(--accent); padding-left: 10px; color: var(--text); }
+.role span { font-size: 9px; color: var(--accent); }
+
+/* ---------- CUADERNO ---------- */
+.section-intro { margin: -12px 0 24px; color: var(--muted); }
+.notebook { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+.save summary {
+  list-style: none; cursor: pointer;
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  padding: 14px 16px;
+}
+.save summary::-webkit-details-marker { display: none; }
+.save summary::after { content: "▼"; margin-left: auto; color: var(--accent2); font-size: 16px; }
+.save[open] summary::after { content: "▲"; }
+.save summary:hover .save-slot, .save summary:focus .save-slot { background: var(--gold); }
+.save-slot { font-size: 9px; background: var(--accent); color: #000; padding: 6px 8px; }
+.save-title strong { color: var(--gold); font-weight: normal; }
+.save-body { padding: 0 16px 18px; border-top: 3px dashed var(--muted); padding-top: 14px; }
+.save-body h4 { font-size: 9px; color: var(--accent2); margin: 12px 0 4px; }
+.todo { color: var(--muted); font-style: italic; }
+.biblio { padding: 20px 24px; }
+.biblio h3 { font-size: 12px; color: var(--gold); margin-bottom: 12px; }
+.biblio ul { list-style: none; columns: 2 220px; }
+.biblio li::before { content: "◆ "; color: var(--accent); }
+
+/* ---------- CONTACTO ---------- */
+.contact { padding: 28px; text-align: center; }
+.contact p { margin-bottom: 20px; }
+.contact .level-links { justify-content: center; flex-wrap: wrap; }
+footer { text-align: center; padding: 30px 16px; color: var(--muted); font-size: 18px; }
+
+@media (max-width: 640px) {
+  .player { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .avatar { width: 140px; height: 140px; font-size: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before { animation: none !important; transition: none !important; }
+}
