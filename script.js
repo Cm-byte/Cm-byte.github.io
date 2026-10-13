@@ -109,7 +109,7 @@ const NOTEBOOK = [
     topic: "Fundamentos de la tecnología web, Git y GitHub",
     learned: "La diferencia más grande que noté es que una aplicación web funciona en cualquier dispositivo o sistema operativo, porque corre sobre el navegador: se accede igual desde una PC, un celular o una tablet sin instalar nada.",
     lab: "Tarjeta de presentación",
-    reflection: "",
+    reflection: "Esta primera práctica me permitió comprender mejor cómo se estructura una página web y cómo se complementan HTML y CSS para presentar información de forma organizada. También aprendí la importancia de utilizar Git y GitHub para guardar versiones de mis proyectos. Considero que esta actividad fue un primer paso para familiarizarme con el desarrollo web y ganar confianza al crear mis propias páginas",
   },
   {
     week: "Semana 3",
