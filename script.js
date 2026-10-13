@@ -90,7 +90,7 @@ const PROJECTS = [
     description: "Sistema web académico para el Centro de Idiomas de la UNCP, desarrollado en mis prácticas pre-profesionales. El backend lo integró la Oficina de Tecnologías de Información.",
     role: "Análisis de requerimientos y desarrollo frontend",  
     icon: "🏫",
-    image: "",           
+    image: "img/ceid.jpg",           
     tags: ["Requerimientos", "AS-IS / TO-BE", "BPMN", "Figma", "Frontend"],
     category: "Prácticas",
     week: "Pre-profesional",
